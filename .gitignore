@@ -1,0 +1,51 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build Folders
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+build/
+
+# NuGet Packages
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET / .NET Core
+wwwroot/lib/
+appsettings.Development.json
+appsettings.Local.json
+*.db
+*.bak
+
+# Logs
+*.log
+logs/
+
+# Rider IDE
+.idea/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Visual Studio Code
+.vscode/
+
+# Others
+*.tmp
+*.cache
+*.DS_Store
+*.swp
+*.sublime-workspace
+*.sublime-project
