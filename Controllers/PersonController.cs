@@ -7,6 +7,12 @@ public class PersonController : ControllerBase
     [HttpGet]
     public string MyFirstRoute()
     {
-        return "Hello World!";
+        return "My first route";
+    }
+
+    [HttpPost]
+    public Person ManipulatePersonModel([FromBody] Person p)
+    {
+        return p;
     }
 }
