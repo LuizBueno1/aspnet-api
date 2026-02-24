@@ -4,6 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 [Route("person")]
 public class PersonController : ControllerBase  
 {
+
+    private readonly PersonRepository _personRepository;
+
+    public PersonController(PersonRepository personRepository)
+    {
+        _personRepository = personRepository;
+    }
+
     [HttpGet]
     public string MyFirstRoute()
     {
