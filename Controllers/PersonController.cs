@@ -12,15 +12,32 @@ public class PersonController : ControllerBase
         _personRepository = personRepository;
     }
 
-    [HttpGet]
-    public string MyFirstRoute()
+    [HttpPost]
+    public Person Register([FromBody] Person p)
     {
-        return "My first route";
+        return _personRepository.RegisterPerson(p);
     }
 
-    [HttpPost]
-    public Person ManipulatePersonModel([FromBody] Person p)
+    [HttpGet]
+    public List<Person> Select()
     {
+        return _personRepository.SelectPeople();
+    }
+
+    [HttpPut("{id}")]
+    public Person Update(int id, [FromBody] Person p)
+    {
+        p.Id = id;
+
+        _personRepository.UpdatePerson(p);
+
         return p;
     }
+
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+        _personRepository.DeletePerson(id);
+    }
+
 }
