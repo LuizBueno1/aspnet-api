@@ -86,4 +86,19 @@ public class PersonRepository
 
         sqlCommand.ExecuteNonQuery();
     }
+
+    public bool PersonExists(int id)
+    {
+        using var connection = new MySqlConnection(_connectionString);
+
+        connection.Open();
+
+        using var sqlCommand = new MySqlCommand("SELECT COUNT(*) FROM people WHERE id = @id", connection);
+
+        sqlCommand.Parameters.AddWithValue("@id", id);
+
+        int counter = Convert.ToInt32(sqlCommand.ExecuteScalar());
+
+        return counter > 0;
+    }
 }
