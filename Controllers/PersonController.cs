@@ -13,9 +13,23 @@ public class PersonController : ControllerBase
     }
 
     [HttpPost]
-    public Person Register([FromBody] Person p)
+    public IActionResult Register([FromBody] Person p)
     {
-        return _personRepository.RegisterPerson(p);
+        if(string.IsNullOrWhiteSpace(p.Name))
+        {
+            return BadRequest(new {message = "Name is mandatory!"});
+        }
+        else if(string.IsNullOrWhiteSpace(p.City))
+        {
+            return BadRequest(new{message = "City is mandatory!"});
+        }
+        else if(p.Age < 0 || p.Age > 120)
+        {
+            return BadRequest(new{message = "The age must be between 0 and 120!"});
+        }
+ 
+            var registeredPerson = _personRepository.RegisterPerson(p);
+            return Created(string.Empty , registeredPerson);
     }
 
     [HttpGet]
