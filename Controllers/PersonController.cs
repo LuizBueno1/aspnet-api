@@ -66,9 +66,17 @@ public class PersonController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public IActionResult Delete(int id)
     {
-        _personRepository.DeletePerson(id);
+        if(_personRepository.PersonExists(id))
+        {
+           _personRepository.DeletePerson(id);
+           return Ok(new {message = "Person successfully deleted."}); 
+        }
+        else
+        {
+            return NotFound(new {message = "Person does not exist!"});
+        }
     }
 
 }
