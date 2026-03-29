@@ -39,13 +39,30 @@ public class PersonController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public Person Update(int id, [FromBody] Person p)
+    public IActionResult Update(int id, [FromBody] Person p)
     {
+        if (!_personRepository.PersonExists(id))
+        {
+            return NotFound(new {message = "Person does not exist!"});
+        }
+        else if(string.IsNullOrWhiteSpace(p.Name))
+        {
+            return BadRequest(new {message = "Name is mandatory!"});
+        }
+        else if(string.IsNullOrWhiteSpace(p.City))
+        {
+            return BadRequest(new{message = "City is mandatory!"});
+        }
+        else if(p.Age < 0 || p.Age > 120)
+        {
+            return BadRequest(new{message = "The age must be between 0 and 120!"});
+        }
+        
         p.Id = id;
 
         _personRepository.UpdatePerson(p);
 
-        return p;
+        return Ok(p);
     }
 
     [HttpDelete("{id}")]
